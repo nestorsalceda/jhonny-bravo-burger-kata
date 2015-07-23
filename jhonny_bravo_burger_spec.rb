@@ -3,7 +3,8 @@ class Burger
   @@PRICES = {
     :cheese => 1,
     :bacon => 2,
-    :egg => 1
+    :egg => 1,
+    :pickle => 0.5
   }
   def initialize
     @price = 3
@@ -39,6 +40,11 @@ describe 'Jhonny Bravo\'s Burger' do
     it 'bacon, egg, cheese burger' do
       @burger.add(:bacon, :egg, :cheese)
       expect(@burger.price).to eq(7)
+    end
+
+    it 'egg, pickle, cheese burger' do
+      @burger.add(:egg, :pickle, :cheese)
+      expect(@burger.price).to eq(5.5)
     end
   end
 end
