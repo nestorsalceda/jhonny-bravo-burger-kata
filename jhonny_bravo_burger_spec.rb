@@ -40,41 +40,67 @@ class WithOnion < With
   end
 end
 
+class Menu
+  def burger
+    Burger.new
+  end
+
+  def cheese_burger
+    WithCheese.new burger
+  end
+
+  def bacon_cheese_burger
+    WithBacon.new cheese_burger
+  end
+
+  def bacon_egg_cheese_burger
+    WithEgg.new bacon_cheese_burger
+  end
+
+  def egg_pickle_cheese_burger
+    WithPickle.new WithEgg.new(WithCheese.new(burger))
+  end
+
+  def bacon_egg_onion_cheese_burger
+    WithOnion.new bacon_egg_cheese_burger
+  end
+end
+
 
 describe 'Jhonny Bravo\'s Burger' do
   context 'when calculating price for a' do
     before(:each) do
-      @burger = Burger.new
+      @menu = Menu.new
     end
 
     it 'hamburger' do
-      expect(@burger.price).to eq(3)
+      burger = @menu.burger
+      expect(burger.price).to eq(3)
     end
 
     it 'cheese burger' do
-      @burger = WithCheese.new(@burger)
-
-      expect(@burger.price).to eq(4)
+      burger = @menu.cheese_burger
+      expect(burger.price).to eq(4)
     end
 
     it 'bacon, cheese burger' do
-      @burger = WithBacon.new(WithCheese.new(@burger))
-      expect(@burger.price).to eq(6)
+      burger = @menu.bacon_cheese_burger
+      expect(burger.price).to eq(6)
     end
 
     it 'bacon, egg, cheese burger' do
-      @burger = WithBacon.new(WithEgg.new(WithCheese.new(@burger)))
-      expect(@burger.price).to eq(7)
+      burger = @menu.bacon_egg_cheese_burger
+      expect(burger.price).to eq(7)
     end
 
     it 'egg, pickle, cheese burger' do
-      @burger = WithPickle.new(WithEgg.new(WithCheese.new(@burger)))
-      expect(@burger.price).to eq(5.5)
+      burger = @menu.egg_pickle_cheese_burger
+      expect(burger.price).to eq(5.5)
     end
 
     it 'egg, onion, bacon, cheese burger' do
-      @burger = WithEgg.new(WithOnion.new(WithBacon.new(WithCheese.new(@burger))))
-      expect(@burger.price).to eq(8)
+      burger = @menu.bacon_egg_onion_cheese_burger
+      expect(burger.price).to eq(8)
     end
   end
 end
