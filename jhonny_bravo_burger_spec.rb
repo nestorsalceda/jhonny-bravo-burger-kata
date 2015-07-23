@@ -43,35 +43,22 @@ end
 class Menu
   def initialize
     @burger = Burger.new
+    inject_build_methods
   end
 
   def cook
     @burger
   end
 
-  def with_cheese
-    @burger = WithCheese.new @burger
-    self
-  end
+  private
 
-  def with_bacon
-    @burger = WithBacon.new @burger
-    self
-  end
-
-  def with_egg
-    @burger = WithEgg.new @burger
-    self
-  end
-
-  def with_onion
-    @burger = WithOnion.new @burger
-    self
-  end
-
-  def with_pickle
-    @burger = WithPickle.new @burger
-    self
+  def inject_build_methods
+    {:cheese => WithCheese, :bacon => WithBacon, :egg => WithEgg, :onion => WithOnion, :pickle => WithPickle}.each do |key, value|
+      define_singleton_method "with_#{key}".to_sym do
+        @burger = value.new @burger
+        self
+      end
+    end
   end
 end
 
@@ -88,7 +75,6 @@ describe 'Jhonny Bravo\'s Burger' do
 
     it 'cheese burger' do
       burger = @menu.with_cheese.cook
-
       expect(burger.price).to eq(4)
     end
 
