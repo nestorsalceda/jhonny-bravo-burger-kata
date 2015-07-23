@@ -1,20 +1,8 @@
 class Burger
   attr_reader :price
-  @@PRICES = {
-    :cheese => 1,
-    :bacon => 2,
-    :egg => 1,
-    :pickle => 0.5,
-    :onion => 1
-  }
+
   def initialize
     @price = 3
-  end
-
-  def add(*ingredients)
-    ingredients.each do |ingredient|
-      @price += @@PRICES[ingredient]
-    end
   end
 end
 
