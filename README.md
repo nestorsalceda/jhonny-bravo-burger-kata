@@ -1,4 +1,4 @@
-#Jhonny Bravo Burguer Kata
+#Jhonny Bravo Burger Kata
 
 Jhonny Bravo tiene una hamburguesería en el centro de la ciudad. Tiene varios
 tipos de hamburguesas, con sus respectivos precios en la carta.
