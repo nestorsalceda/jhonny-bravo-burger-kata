@@ -1,8 +1,6 @@
 class Burger
-  attr_reader :price
-
-  def initialize
-    @price = 3
+  def price
+    3
   end
 end
 
