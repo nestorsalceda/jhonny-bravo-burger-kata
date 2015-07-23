@@ -48,6 +48,16 @@ class WithEgg
   end
 end
 
+class WithPickle
+  def initialize(burger)
+    @burger = burger
+  end
+
+  def price
+    0.5 + @burger.price
+  end
+end
+
 describe 'Jhonny Bravo\'s Burger' do
   context 'when calculating price for a' do
     before(:each) do
@@ -75,7 +85,7 @@ describe 'Jhonny Bravo\'s Burger' do
     end
 
     it 'egg, pickle, cheese burger' do
-      @burger.add(:egg, :pickle, :cheese)
+      @burger = WithPickle.new(WithEgg.new(WithCheese.new(@burger)))
       expect(@burger.price).to eq(5.5)
     end
 
