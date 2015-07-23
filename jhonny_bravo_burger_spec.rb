@@ -6,51 +6,37 @@ class Burger
   end
 end
 
-class WithCheese
+class With
   def initialize(burger)
     @burger = burger
   end
+end
 
+class WithCheese < With
   def price
     1 + @burger.price
   end
 end
 
-class WithBacon
-  def initialize(burger)
-    @burger = burger
-  end
-
+class WithBacon < With
   def price
     2 + @burger.price
   end
 end
 
-class WithEgg
-  def initialize(burger)
-    @burger = burger
-  end
-
+class WithEgg < With
   def price
     1 + @burger.price
   end
 end
 
-class WithPickle
-  def initialize(burger)
-    @burger = burger
-  end
-
+class WithPickle < With
   def price
     0.5 + @burger.price
   end
 end
 
-class WithOnion
-  def initialize(burger)
-    @burger = burger
-  end
-
+class WithOnion < With
   def price
     1 + @burger.price
   end
