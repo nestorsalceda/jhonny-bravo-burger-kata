@@ -40,41 +40,76 @@ class WithOnion < With
   end
 end
 
+class Menu
+  def initialize
+    @burger = Burger.new
+  end
+
+  def cook
+    @burger
+  end
+
+  def with_cheese
+    @burger = WithCheese.new @burger
+    self
+  end
+
+  def with_bacon
+    @burger = WithBacon.new @burger
+    self
+  end
+
+  def with_egg
+    @burger = WithEgg.new @burger
+    self
+  end
+
+  def with_onion
+    @burger = WithOnion.new @burger
+    self
+  end
+
+  def with_pickle
+    @burger = WithPickle.new @burger
+    self
+  end
+end
 
 describe 'Jhonny Bravo\'s Burger' do
   context 'when calculating price for a' do
     before(:each) do
-      @burger = Burger.new
+      @menu = Menu.new
     end
 
     it 'hamburger' do
-      expect(@burger.price).to eq(3)
+      burger = @menu.cook
+      expect(burger.price).to eq(3)
     end
 
     it 'cheese burger' do
-      @burger = WithCheese.new(@burger)
+      burger = @menu.with_cheese.cook
 
-      expect(@burger.price).to eq(4)
+      expect(burger.price).to eq(4)
     end
 
     it 'bacon, cheese burger' do
-      @burger = WithBacon.new(WithCheese.new(@burger))
-      expect(@burger.price).to eq(6)
+      burger = @menu.with_bacon.with_cheese.cook
+      expect(burger.price).to eq(6)
     end
 
     it 'bacon, egg, cheese burger' do
-      @burger = WithBacon.new(WithEgg.new(WithCheese.new(@burger)))
-      expect(@burger.price).to eq(7)
+      burger = @menu.with_bacon.with_egg.with_cheese.cook
+      expect(burger.price).to eq(7)
     end
 
     it 'egg, pickle, cheese burger' do
-      @burger = WithPickle.new(WithEgg.new(WithCheese.new(@burger)))
-      expect(@burger.price).to eq(5.5)
+      burger = @menu.with_egg.with_pickle.with_cheese.cook
+      expect(burger.price).to eq(5.5)
     end
 
     it 'egg, onion, bacon, cheese burger' do
-      @burger = WithEgg.new(WithOnion.new(WithBacon.new(WithCheese.new(@burger))))
-      expect(@burger.price).to eq(8)
+      burger = @menu.with_egg.with_onion.with_bacon.with_cheese.cook
+      expect(burger.price).to eq(8)
     end
   end
 end
