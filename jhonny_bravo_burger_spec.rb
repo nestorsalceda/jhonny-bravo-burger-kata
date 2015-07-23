@@ -58,6 +58,17 @@ class WithPickle
   end
 end
 
+class WithOnion
+  def initialize(burger)
+    @burger = burger
+  end
+
+  def price
+    1 + @burger.price
+  end
+end
+
+
 describe 'Jhonny Bravo\'s Burger' do
   context 'when calculating price for a' do
     before(:each) do
@@ -90,7 +101,7 @@ describe 'Jhonny Bravo\'s Burger' do
     end
 
     it 'egg, onion, bacon, cheese burger' do
-      @burger.add(:egg, :onion, :bacon, :cheese)
+      @burger = WithEgg.new(WithOnion.new(WithBacon.new(WithCheese.new(@burger))))
       expect(@burger.price).to eq(8)
     end
   end
